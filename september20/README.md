@@ -5,11 +5,11 @@ For this assignment, I defined robot as a moving machine that performs certain s
 I started off to make a robot that goes forward when the light is green and stop when it's red. Since it was impossible to make the vehicle recognize the color of the light and decide to stop or go, I synchronized the vehicle and the light in order to give the sense that the vehicle is working based on the color of the light. 
 ### - Process
 So, first, I connected two motor to the arduino and set the value of `analogWrite` to a right value so that the motor has enough power to spin with the wheels. 80 seemed enough.
-![motors with wheels](/images/motor_with_wheels.jpg) ![first circuit](/images/first_iteration.jpg)
+![motors with wheels](./images/motor_with_wheels.jpg) ![first circuit](./images/first_iteration.jpg)
 Then, I built a frame on top of it that looked triangular. However, the frame could not bear the weight of motors and the movement of the vehicle. The bottom part kept collapsing whenever the motor spun.
-![initial frame](/images/initial_frame.jpg)
+![initial frame](./images/initial_frame.jpg)
 Therefore, I added supporting parts, attaching pieces that connect the upper part of the frame and the bottom. The cardboard was stiff enough to help support the weight of the motors. Finally, the frame did not collapse even after a number of movements.
-![final vehicle](/images/final_vehicle.jpg)
+![final vehicle](./images/final_vehicle.jpg)
 ## 3. Describe the story and how the movement sequence tells it
 The story is a vehicle moving based on the color of the traffic light. It stops whenever the light is red and goes when it's blue. I thought it would be more interesting if the interval of the lights were different. 
 ## 4. [A link to the video](https://youtu.be/HxyfnpIqfb4 "project video")
