@@ -8,3 +8,8 @@ I want to build a robot that moves around looking for an object. Its appearance 
 Since the mission of the robot (I'll assume it's a he/him for now) is to find an object (I'm thinking about a cute doll), the performance starts with the robot looking for the object. Although the object is right behind him, he does not recognize it because he can only sense what's in front of himself. So, he moves around looking for the object until he draws a circle and comes back to the original spot facing the object. The route is as depicted in the image above.
 ### Expression
 Neo-pixel and movement are the two ways I will use to make him expressive. When he is yet to find the object and still searching for it, the number of lights lit on the neo-pixel would be small or even 1 and the change of lighted pixels would be slow. The movement of the robot would also be slow, all of the signs intended to convey how careful and vigilant he is. Finally when he finds the object, he expresses joy with colorful and chaotic pattern of neo-pixel and also fast and jittery movement.
+## Process
+### Step 1.
+First part was building each component and soldering it / connecting it firmly so that bad connection does not bug me later. I wanted to make sure all components (motors, neopixel and potentiometer) were tested separately before building the whole thing.
+### Step 2. 
+Next part was writing Arduino code that syncs all the parts.
