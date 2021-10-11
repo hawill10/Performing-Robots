@@ -49,7 +49,7 @@ String prevState = "DELAY";
 String state = "SEARCHING";
 
 int moveStart = 0;
-int movingTime = 1500;
+int movingTime = 1000;
 
 int delayStart = 0;
 int delayTime = 500;
@@ -57,6 +57,9 @@ String beforeDelay;
 
 boolean sequenceStarted = false;
 int repetition = 0;
+
+int rainbowInterval = 1000;
+long rainbowHue = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -124,8 +127,8 @@ void loop() {
         }
         
         neoPixelPos = (neoPixelPos + 1) % PATTERN_LENGTH;
-        Serial.print("NP Pos : ");
-        Serial.println(neoPixelPos);
+//        Serial.print("NP Pos : ");
+//        Serial.println(neoPixelPos);
       }
     }
     else if (state == "MOVING") {
@@ -153,27 +156,39 @@ void loop() {
         prevState = "DELAY";
         delayStart = millis();
       }
-      Serial.print("Before delay : ");
-      Serial.println(beforeDelay);
+
       if (millis() - delayStart >= delayTime) {
         if (beforeDelay == "SEARCHING"){
+          Serial.println("Searching Done");
           state = "MOVING";
         }
         else if (beforeDelay == "MOVING") {
-          state = "SEARCHING";
-          prevNeoPixelTime = millis();
+          Serial.println("Moving Done");
           repetition++;
           if (repetition == 3) {
-            servoInterval = 3; 
+            servoInterval *= 5; 
             state = "FOUND";
+            Serial.println("FOUND");
           }
+          else {
+            state = "SEARCHING";
+          }
+          
         }
       }
     }
     else if (state == "FOUND") {
-      servoInterval = 3; 
       if (millis() - prevNeoPixelTime >= rainbowInterval) {
-        
+        rainbow(rainbowHue);
+        rainbowHue += 256;
+        if (rainbowHue >= 5*65536) {
+          state = "SEARCHING";
+          sequenceStarted =false;
+          servoInterval = 1;
+          servoPos = 10;
+          strip.clear();
+          strip.show();
+        }
       }
       
     }
@@ -182,7 +197,7 @@ void loop() {
       prevServoTime = millis();
       servoPos += servoInterval;
       myservo.write(servoPos);
-      Serial.println(servoPos);
+//      Serial.println(servoPos);
       if (servoPos >= 150 or servoPos <= 0) {
         servoInterval *= -1;
       }
@@ -191,6 +206,23 @@ void loop() {
   
 
 }
+
+void rainbow(long firstPixelHue) {
+  for(int i=0; i<strip.numPixels(); i++) { // For each pixel in strip...
+    // Offset pixel hue by an amount to make one full revolution of the
+    // color wheel (range of 65536) along the length of the strip
+    // (strip.numPixels() steps):
+    int pixelHue = firstPixelHue + (i * 65536L / strip.numPixels());
+    // strip.ColorHSV() can take 1 or 3 arguments: a hue (0 to 65535) or
+    // optionally add saturation and value (brightness) (each 0 to 255).
+    // Here we're using just the single-argument hue variant. The result
+    // is passed through strip.gamma32() to provide 'truer' colors
+    // before assigning to each pixel:
+    strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pixelHue)));
+  }
+  strip.show();
+}
+
 
 void lightUpPosition(uint32_t color, int pos) {
   strip.setPixelColor(pos, color);
@@ -258,28 +290,28 @@ void theaterChase(uint32_t color, int wait) {
 }
 
 // Rainbow cycle along whole strip. Pass delay time (in ms) between frames.
-void rainbow(int wait) {
-  // Hue of first pixel runs 5 complete loops through the color wheel.
-  // Color wheel has a range of 65536 but it's OK if we roll over, so
-  // just count from 0 to 5*65536. Adding 256 to firstPixelHue each time
-  // means we'll make 5*65536/256 = 1280 passes through this outer loop:
-  for(long firstPixelHue = 0; firstPixelHue < 5*65536; firstPixelHue += 256) {
-    for(int i=0; i<strip.numPixels(); i++) { // For each pixel in strip...
-      // Offset pixel hue by an amount to make one full revolution of the
-      // color wheel (range of 65536) along the length of the strip
-      // (strip.numPixels() steps):
-      int pixelHue = firstPixelHue + (i * 65536L / strip.numPixels());
-      // strip.ColorHSV() can take 1 or 3 arguments: a hue (0 to 65535) or
-      // optionally add saturation and value (brightness) (each 0 to 255).
-      // Here we're using just the single-argument hue variant. The result
-      // is passed through strip.gamma32() to provide 'truer' colors
-      // before assigning to each pixel:
-      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pixelHue)));
-    }
-    strip.show(); // Update strip with new contents
-    delay(wait);  // Pause for a moment
-  }
-}
+//void rainbow(int wait) {
+//  // Hue of first pixel runs 5 complete loops through the color wheel.
+//  // Color wheel has a range of 65536 but it's OK if we roll over, so
+//  // just count from 0 to 5*65536. Adding 256 to firstPixelHue each time
+//  // means we'll make 5*65536/256 = 1280 passes through this outer loop:
+//  for(long firstPixelHue = 0; firstPixelHue < 5*65536; firstPixelHue += 256) {
+//    for(int i=0; i<strip.numPixels(); i++) { // For each pixel in strip...
+//      // Offset pixel hue by an amount to make one full revolution of the
+//      // color wheel (range of 65536) along the length of the strip
+//      // (strip.numPixels() steps):
+//      int pixelHue = firstPixelHue + (i * 65536L / strip.numPixels());
+//      // strip.ColorHSV() can take 1 or 3 arguments: a hue (0 to 65535) or
+//      // optionally add saturation and value (brightness) (each 0 to 255).
+//      // Here we're using just the single-argument hue variant. The result
+//      // is passed through strip.gamma32() to provide 'truer' colors
+//      // before assigning to each pixel:
+//      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pixelHue)));
+//    }
+//    strip.show(); // Update strip with new contents
+//    delay(wait);  // Pause for a moment
+//  }
+//}
 
 // Rainbow-enhanced theater marquee. Pass delay time (in ms) between frames.
 void theaterChaseRainbow(int wait) {
