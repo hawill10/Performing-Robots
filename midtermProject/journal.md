@@ -32,3 +32,4 @@ Then, I put all the other components on top of the frame, and fortunately, it di
 3. Size of the frame: I tried to make the frame as small as possible fearing that it would be difficult for the two motors to carry a big frame. In the end, it turned out to be a bit too much of a concern. The motors did a very good job carrying everything. The decision actually bugged me later because the frame became too crowded and it was hard to put all the components in its right place. Next time, I would go for a frame big enough to hold all the components neatly.
 4. I didn't get to implement a code that makes the robot change directions and come back to its original location. I would have done it if there were more time, but I spent a lot of time working on other parts and ended up with a robot that just moves straight.
 ## Performance
+[link](https://youtu.be/WhQKYuNFyzI "finding nishinoya")
