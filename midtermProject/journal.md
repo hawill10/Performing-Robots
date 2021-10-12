@@ -18,7 +18,7 @@ Next part was writing Arduino code that syncs all the parts. I wanted my program
 In order to make this happen, I had to make use of states and `millis()`. In a `SEARCHING` state, motors do not work and the neopixel puts out red light in a pattern that gives a sense of surveillance. Then comes the `MOVING` phases where the neopixel stops and the motors start working, moving him forward. After 3 repetitions of `SEARCHING` and `MOVING`, he enters the `FOUND` phase where the servo motor speeds up and the neopixel shines in rainbows in order to express joy and excitement. 
 In between state changes, I inserted a `DELAY` phase where he waits for a short period of time. I inserted the state in order to simulate human decision-making. We do not change actions immediately. It takes time for humans to move from one action to another. 
 I checked `SEARCHING` and `MOVING` with `DELAY`s in between were working in sync before building the frame because I thought it would be difficult to rewire stuff and constantly update code after building the frame.
-[link](https://youtu.be/lY9TRG7qjzc "sync components")
+[video of syncing components](https://youtu.be/lY9TRG7qjzc "sync components")
 ### Step 3. 
 The last major step was building the frame. Due to lack of pins and power, I decided to use only two wheels. And I attached a piece of straw on the back and bottom of the frame so the frame was more horizontal. 
 In order to build the radar, I tested the range of movement of the servo motor so that the straw attached to the part only sweeps the front. 
