@@ -189,6 +189,7 @@ void loop() {
           servoInterval = 1;
           servoPos = 10;
           repetition = 0;
+          rainbowHue = 0;
           strip.clear();
           strip.show();
         }
