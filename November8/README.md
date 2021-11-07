@@ -1,0 +1,4 @@
+## Reading Response
+The timing of robot actions is interesting to think about. Robots I imagined until now were ones that respond to another robot's or human's action. However, such action could seem too slow for the audience. Human actors usually act or respond almost simultaneously to input. This implies that robots might have to act before getting sufficient information to act on. In order to make this natural, robots should collect information beforehand. Acting based on past inputs could increase accuracy (naturalness) of robot's actions. The problem lies in how/in what format past inputs can be incorporated into robot's algorithms.
+
+## Performance Idea
